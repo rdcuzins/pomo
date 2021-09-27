@@ -28,11 +28,11 @@ func run(cmd *cobra.Command, args []string) {
 	}
 	dur, err := time.ParseDuration(duration)
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "TimeParse error: %v", err)
+		fmt.Fprintf(os.Stderr, "TimeParse error: \n\t%v\n", err)
 	}
 	up := time.Now().Add(dur).Format(time.RFC3339)
 	viper.Set("pomo.up", up)
 	if err := viper.WriteConfig(); err != nil {
-		fmt.Fprintf(os.Stderr, "Unable to write config: %v", err)
+		fmt.Fprintf(os.Stderr, "Unable to write config: \n\t%v\n", err)
 	}
 }

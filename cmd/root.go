@@ -25,7 +25,7 @@ var rootCmd = &cobra.Command{
 		if len(up) > 0 {
 			endt, err := time.Parse(time.RFC3339, up)
 			if err != nil {
-				fmt.Fprintf(os.Stderr, "Unable to parse time: %v\n", err)
+				fmt.Fprintf(os.Stderr, "Unable to parse time: \n\t%v\n", err)
 			}
 			timeLeft := endt.Sub(time.Now()).Round(time.Second)
 			emoji := viper.Get("pomo.emoji")
@@ -69,7 +69,7 @@ func initConfig() {
 	ensureConfig()
 	// If a config file is found, read it in.
 	if err := viper.ReadInConfig(); err != nil {
-		fmt.Fprintf(os.Stderr, "Error with config: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error with config: \n\t%v\n", err)
 	}
 }
 
