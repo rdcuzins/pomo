@@ -5,7 +5,7 @@ purposes.  This is based on rwxrob's [cmdbox-pomo](https://github.com/rwxrob/cmd
 
 ## Install
 
-`go get github.com/rdcuzins/pomo`
+`go install github.com/rdcuzins/pomo@latest`
 
 ## Usage
 
