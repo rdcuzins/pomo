@@ -30,7 +30,7 @@ var rootCmd = &cobra.Command{
 			timeLeft := endt.Sub(time.Now()).Round(time.Second)
 			emoji := viper.Get("pomo.emoji")
 			if timeLeft < time.Second*30 && timeLeft%(time.Second*2) == 0 {
-				fmt.Printf("%v %v\n", "⚠️ ", timeLeft)
+				fmt.Printf("%v %v\n", "⚠️", timeLeft)
 			} else {
 				fmt.Printf("%v %v\n", emoji, timeLeft)
 			}
