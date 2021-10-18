@@ -57,7 +57,7 @@ func initConfig() {
 		config, err := os.UserConfigDir()
 		cobra.CheckErr(err)
 		abspath, _ := os.Executable()
-		x := path.Base(abspath)
+		x := filepath.Base(abspath)
 		configDir := path.Join(config, x)
 		cfgFile = path.Join(configDir, "config.json")
 		viper.SetConfigFile(cfgFile)
