@@ -11,7 +11,7 @@ var stopCmd = &cobra.Command{
 	Short: "Stops active pomo timer if there is one.",
 	Long:  "Stops timer by setting empty value in config parameter.",
 	Run: func(cmd *cobra.Command, args []string) {
-		viper.Set("pomo.up", "")
+		viper.Set("up", "")
 		viper.WriteConfig()
 	},
 }

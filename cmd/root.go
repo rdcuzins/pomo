@@ -12,7 +12,29 @@ import (
 	"github.com/spf13/viper"
 )
 
-var cfgFile string
+type PomoConfig struct {
+	Duration				string `json:"duration"`
+	Emoji					  string `json:"emoji"`
+	DefaultTaskName	string `json:"defaultTaskName"`
+	Tasks           []task `json:"tasks"`
+}
+
+type task struct {
+	Name string
+	Times []struct {
+		Start string
+		Stop  string
+	}
+}
+
+var (
+	cfgFile string
+	Config PomoConfig
+)
+
+func (c *PomoConfig) GetTasks() []task {
+	return c.Tasks
+}
 
 var rootCmd = &cobra.Command{
 	Use:   "pomo",
@@ -21,14 +43,14 @@ var rootCmd = &cobra.Command{
 	// Uncomment the following line if your bare application
 	// has an action associated with it:
 	Run: func(cmd *cobra.Command, args []string) {
-		up := viper.GetString("pomo.up")
-		if len(up) > 0 {
-			endt, err := time.Parse(time.RFC3339, up)
+		start := viper.GetString("start")
+		if len(start) > 0 {
+			endt, err := time.Parse(time.RFC3339, start)
 			if err != nil {
 				fmt.Fprintf(os.Stderr, "Unable to parse time: \n\t%v\n", err)
 			}
 			timeLeft := endt.Sub(time.Now()).Round(time.Second)
-			emoji := viper.Get("pomo.emoji")
+			emoji := viper.Get("emoji")
 			if timeLeft < time.Second*30 && timeLeft%(time.Second*2) == 0 {
 				fmt.Printf("%v %v\n", "⚠️", timeLeft)
 			} else {
@@ -63,7 +85,7 @@ func initConfig() {
 		viper.SetConfigFile(cfgFile)
 	}
 
-	viper.SetDefault("pomo.emoji", "🍅")
+	viper.SetDefault("emoji", "🍅")
 	viper.AutomaticEnv() // read in environment variables that match
 
 	ensureConfig()
